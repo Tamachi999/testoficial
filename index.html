@@ -1,44 +1,713 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Sin título</title>
-    <meta name="author" content="Soul999" />
-    <style type="text/css"> body { background-color:#202850; }</style>
-    
-  </head>
-  <body>
-    <div id="gameboy_shell">
-      <div id="game">
-        <canvas id="mainCanvas" width="160" height="144">No Canvas Support</canvas>
-      </div>
-      <div id="controller">
-        <div id="controller_dpad">
-          <div id="controller_left"></div>
-          <div id="controller_right"></div>
-          <div id="controller_up"></div>
-          <div id="controller_down"></div>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nuestro Tiempo Juntos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 15px;
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffffff" opacity="0.2" d="M30,50 C30,60 40,70 50,70 C60,70 70,60 70,50 C70,40 60,30 50,30 C40,30 30,40 30,50 Z"/></svg>');
+            background-size: 200px;
+            opacity: 0.1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .date {
+            font-style: italic;
+            font-size: 1rem;
+            position: relative;
+        }
+        
+        .time-together {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .time-title {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .time-counters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .time-item {
+            background: linear-gradient(to bottom, #ff8e8e, #ff6b6b);
+            color: white;
+            padding: 15px 8px;
+            border-radius: 10px;
+            min-width: 90px;
+            flex: 1 1 calc(25% - 20px);
+            max-width: calc(25% - 10px);
+            box-shadow: 0 5px 10px rgba(255, 107, 107, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .time-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .time-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .time-label {
+            font-size: 0.9rem;
+        }
+        
+        .memories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        
+        .memory-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .memory-img {
+            height: 200px;
+            background-color: #ffe6e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b6b;
+            font-size: 3rem;
+        }
+        
+        .memory-content {
+            padding: 20px;
+        }
+        
+        .memory-title {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .memory-text {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .memory-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .love-reasons {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .reasons-list {
+            list-style-type: none;
+        }
+        
+        .reasons-list li {
+            padding: 12px;
+            margin-bottom: 12px;
+            background-color: #fff5f5;
+            border-left: 5px solid #ff6b6b;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .reasons-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .secret-message {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .message-btn {
+            background-color: white;
+            color: #ff6b6b;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hidden-message {
+            display: none;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #ff6b6b;
+            font-size: 1rem;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        .milestone {
+            background: linear-gradient(45deg, #ff8e8e, #ff6b6b);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            display: none;
+        }
+        
+        .milestone i {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .progress-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 25px;
+            background-color: #ffe6e6;
+            border-radius: 15px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #ff8e8e, #ff6b6b);
+            border-radius: 15px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #ff6b6b;
+            font-size: 0.95rem;
+        }
+        
+        /* Media Queries para diferentes tamaños de pantalla */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 25px 15px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .time-title {
+                font-size: 1.5rem;
+            }
+            
+            .time-item {
+                min-width: 80px;
+                padding: 12px 5px;
+                flex: 1 1 calc(33.333% - 10px);
+                max-width: calc(33.333% - 10px);
+            }
+            
+            .time-value {
+                font-size: 1.5rem;
+            }
+            
+            .time-label {
+                font-size: 0.8rem;
+            }
+            
+            .memories {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .memory-card img {
+                height: 180px;
+            }
+            
+            .love-reasons {
+                padding: 20px;
+            }
+            
+            .secret-message {
+                padding: 25px 15px;
+            }
+            
+            .message-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .date {
+                font-size: 0.9rem;
+            }
+            
+            .time-item {
+                flex: 1 1 calc(50% - 10px);
+                max-width: calc(50% - 10px);
+                min-width: 70px;
+            }
+            
+            .time-value {
+                font-size: 1.3rem;
+            }
+            
+            .time-label {
+                font-size: 0.75rem;
+            }
+            
+            .memory-content {
+                padding: 15px;
+            }
+            
+            .memory-title {
+                font-size: 1.2rem;
+            }
+            
+            .memory-text {
+                font-size: 0.9rem;
+            }
+            
+            .reasons-list li {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .hidden-message {
+                font-size: 1rem;
+                padding: 12px;
+            }
+            
+            .progress-container {
+                padding: 20px;
+            }
+            
+            .progress-bar {
+                height: 20px;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .time-item {
+                flex: 1 1 calc(50% - 5px);
+                max-width: calc(50% - 5px);
+                min-width: 60px;
+                padding: 8px 3px;
+            }
+            
+            .time-value {
+                font-size: 1.1rem;
+            }
+            
+            .time-label {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="mainTitle">Nuestros <span id="timeUnit">Meses</span> Juntos</h1>
+            <p class="subtitle">Cada momento a tu lado es un regalo</p>
+            <p class="date">Desde el 20 de abril de 2025</p>
+        </header>
+        
+        <div class="milestone" id="yearMilestone">
+            <i class="fas fa-glass-cheers"></i>
+            <h2>¡Feliz Primer Aniversario!</h2>
+            <p>Hemos llegado a nuestro primer año juntos. ¡Es solo el comienzo de nuestra eternidad!</p>
         </div>
-        <div id="controller_select" class="capsuleBtn">Select</div>
-        <div id="controller_start" class="capsuleBtn">Start</div>
-        <div id="controller_b" class="roundBtn">B</div>
-        <div id="controller_a" class="roundBtn">A</div>
-      </div>      
+        
+        <section class="time-together">
+            <h2 class="time-title">Tiempo que hemos compartido</h2>
+            <div class="time-counters">
+                <div class="time-item">
+                    <div class="time-value" id="years">0</div>
+                    <div class="time-label">Años</div>
+                </div>
+                <div class="time-item">
+                    <div class="time-value" id="months">4</div>
+                    <div class="time-label">Meses</div>
+                </div>
+                <div class="time-item">
+                    <div class="time-value" id="weeks">17</div>
+                    <div class="time-label">Semanas</div>
+                </div>
+                <div class="time-item">
+                    <div class="time-value" id="days">122</div>
+                    <div class="time-label">Días</div>
+                </div>
+                <div class="time-item">
+                    <div class="time-value" id="hours">2928</div>
+                    <div class="time-label">Horas</div>
+                </div>
+                <div class="time-item">
+                    <div class="time-value" id="minutes">175680</div>
+                    <div class="time-label">Minutos</div>
+                </div>
+                <div class="time-item">
+                    <div class="time-value" id="seconds">10540800</div>
+                    <div class="time-label">Segundos</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="progress-container">
+            <h2 class="section-title">Progreso hacia nuestro primer año</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="yearProgress"></div>
+            </div>
+            <div class="progress-text" id="progressText">33% hacia nuestro primer año juntos</div>
+        </div>
+        
+        <h2 class="section-title">Nuestros Recuerdos</h2>
+        <section class="memories">
+            <div class="memory-card">
+                <img src="01.jpg" alt="Conocernos">
+                <div class="memory-content">
+                    <h3 class="memory-title">Conocernos</h3>
+                    <p class="memory-text">Recuerdo cuando aun no estabamos juntos pero ya se notaba la quimica.</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="02.jpg" alt="Nuestra primera comida juntos">
+                <div class="memory-content">
+                    <h3 class="memory-title">Nuestra primera comida juntos</h3>
+                    <p class="memory-text">No recuerdo mucho que comí, pero sí recuerdo lo bien que me sentía a tu lado mirando tus bellos ojos.</p>
+                </div>
+            </div>
+            
+            <div class="memory-card">
+                <img src="03.jpeg" alt="El regalo">
+                <div class="memory-content">
+                    <h3 class="memory-title">El regalo</h3>
+                    <p class="memory-text">Recuerdo ese primer regalo que te hice con mis propias manos, no me quedò muy bonito pero puse todo mi corazòn en el.</p>
+                </div>
+            </div>
+			
+            <div class="memory-card">
+                <img src="04.jpg" alt="El primer ramo de flores">
+                <div class="memory-content">
+                    <h3 class="memory-title">El primer ramo de flores</h3>
+                    <p class="memory-text">Recuerdo ese primer ramo, lo nervioso que estaba cuando te lo hiba a entregar y la cara tan tierna que pusiste cuando me viste.</p>
+                </div>
+            </div>
+			
+            <div class="memory-card">
+                <img src="05.jpg" alt="La primera vez que fuiste a mi casa">
+                <div class="memory-content">
+                    <h3 class="memory-title">La primera vez que fuiste a mi casa</h3>
+                    <p class="memory-text">Recuerdo lo nerviosa que estabas y lo hermosa que te veias.</p>
+                </div>
+            </div>
+			
+            <div class="memory-card">
+                <img src="06.jpg" alt="Tiempo">
+                <div class="memory-content">
+                    <h3 class="memory-title">Tiempo</h3>
+                    <p class="memory-text">El tiempo ah pasado volando junto a ti mivida.</p>
+                </div>
+            </div>
+			
+            <div class="memory-card">
+                <img src="07.jpg" alt="Mi sol">
+                <div class="memory-content">
+                    <h3 class="memory-title">Mi sol</h3>
+                    <p class="memory-text">Este dia estabas increiblemente luminosa, fuiste la chica mas linda del lugar.</p>
+                </div>
+            </div>
+			
+            <div class="memory-card">
+                <img src="08.jpg" alt="Felicidad">
+                <div class="memory-content">
+                    <h3 class="memory-title">Felicidad</h3>
+                    <p class="memory-text">No son necesarias las palabras solo mira la pureza de la imagen.</p>
+                </div>
+            </div>
+			
+            <div class="memory-card">
+                <img src="09.jpg" alt="Apoyo">
+                <div class="memory-content">
+                    <h3 class="memory-title">Apoyo</h3>
+                    <p class="memory-text">Aun en mis momentos mas oscuros y estresantes haz estado ahi para apoyarme.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="love-reasons">
+            <h2 class="section-title">Razones por las que te amo</h2>
+            <ul class="reasons-list">
+                <li>Tu sonrisa sincera</li>
+                <li>Tu forma de ver la vida</li>
+				<li>Tu habilidad en la cama</li>
+                <li>Cómo me haces sentir cada día</li>
+                <li>Tus hermosos ojos marrones</li>
+                <li>La forma en que me entiendes sin necesidad de palabras</li>
+				<li>Tu deliciosa comida</li>
+				<li>Tu apoyo incondicional</li>
+				<li>Tu paz en momentos de caos</li>
+				<li>Tu cariño</li>
+				<li>Tu forma de hacerme sentir</li>
+				<li>Como me haz hecho descubrir gustos nuevos</li>
+            </ul>
+        </section>
+        
+        <section class="secret-message">
+            <h2>Tengo un mensaje especial para ti</h2>
+            <button class="message-btn" onclick="showMessage()">Haz clic aquí</button>
+            <div id="hiddenMessage" class="hidden-message">
+                <p>Estos 4 meses contigo han sido los mejores de mi vida. Cada día a tu lado es un regalo que atesoro profundamente. Eres la persona más increíble que he conocido y me siento el ser más afortunado por tenerte en mi vida. Te amo más de lo que las palabras pueden expresar.</p>
+                <p>Con todo mi amor,<br>Yoham</p>
+            </div>
+        </section>
     </div>
+    
+    <footer>
+        <p>Hecho con <span class="heart">❤</span> para la mujer más especial del mundo</p>
+    </footer>
+
     <script>
-      const customControls = {}
+        // Fecha de inicio de la relación (20 de abril de 2025)
+        const startDate = new Date('2025-04-20');
+        
+        function updateTimeTogether() {
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            
+            // Cálculo del tiempo juntos
+            const seconds = Math.floor(diffTime / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const weeks = Math.floor(days / 7);
+            const months = Math.floor(days / 30.44); // Promedio de días por mes
+            const years = Math.floor(months / 12);
+            
+            // Si han pasado años completos, actualizamos meses restantes
+            const remainingMonths = months % 12;
+            
+            // Actualizar los valores en la página
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = remainingMonths;
+            document.getElementById('weeks').textContent = weeks;
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            
+            // Calcular progreso hacia el primer año
+            const daysInYear = 365;
+            const progressPercentage = Math.min(100, (days / daysInYear) * 100);
+            document.getElementById('yearProgress').style.width = progressPercentage + '%';
+            document.getElementById('progressText').textContent = 
+                Math.round(progressPercentage) + '% hacia nuestro primer año juntos';
+            
+            // Cambiar el título según los años completos
+            const timeUnitElement = document.getElementById('timeUnit');
+            const mainTitleElement = document.getElementById('mainTitle');
+            const yearMilestoneElement = document.getElementById('yearMilestone');
+            
+            if (years > 0) {
+                timeUnitElement.textContent = "Años";
+                if (years === 1) {
+                    mainTitleElement.innerHTML = "Nuestro Primer Año Juntos";
+                } else {
+                    mainTitleElement.innerHTML = `Nuestros ${years} Años Juntos`;
+                }
+                
+                // Mostrar mensaje especial en el aniversario
+                const isAnniversary = now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
+                if (isAnniversary) {
+                    yearMilestoneElement.style.display = 'block';
+                    if (years === 1) {
+                        yearMilestoneElement.querySelector('h2').textContent = `¡Feliz ${years}er Aniversario!`;
+                    } else {
+                        yearMilestoneElement.querySelector('h2').textContent = `¡Feliz ${years}° Aniversario!`;
+                    }
+                }
+            } else {
+                timeUnitElement.textContent = "Meses";
+                if (months === 1) {
+                    mainTitleElement.innerHTML = "Nuestro Primer Mes Juntos";
+                } else {
+                    mainTitleElement.innerHTML = `Nuestros ${months} Meses Juntos`;
+                }
+                
+                // Mostrar mensaje especial en el mesiversario
+                if (now.getDate() === startDate.getDate()) {
+                    yearMilestoneElement.style.display = 'block';
+                    yearMilestoneElement.querySelector('i').className = 'fas fa-birthday-cake';
+                    yearMilestoneElement.querySelector('h2').textContent = `¡Feliz ${months} Meses Juntos!`;
+                    yearMilestoneElement.querySelector('p').textContent = 
+                        `Hemos cumplido ${months} meses juntos. ¡Qué rápido pasa el tiempo cuando estoy contigo!`;
+                }
+            }
+        }
+        
+        // Actualizar inmediatamente y luego cada segundo
+        updateTimeTogether();
+        setInterval(updateTimeTogether, 1000);
+        
+        // Función para mostrar el mensaje secreto
+        function showMessage() {
+            const message = document.getElementById('hiddenMessage');
+            if (message.style.display === 'block') {
+                message.style.display = 'none';
+            } else {
+                message.style.display = 'block';
+            }
+        }
     </script>
-    <script src="js/other/mobile.js"></script>
-    <script src="js/other/base64.js"></script>
-    <script src="js/other/swfobject.js"></script>
-    <script src="js/other/resampler.js"></script>
-    <script src="js/other/XAudioServer.js"></script>
-    <script src="js/other/controls.js"></script>
-    <script src="js/other/resize.js"></script>    
-    <script src="js/GameBoyCore.js"></script>
-    <script src="js/GameBoyIO.js"></script>
-  </body>
+</body>
 </html>
