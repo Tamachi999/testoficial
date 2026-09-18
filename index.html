@@ -1,713 +1,635 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nuestro Tiempo Juntos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            padding: 30px 15px;
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
-            color: white;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffffff" opacity="0.2" d="M30,50 C30,60 40,70 50,70 C60,70 70,60 70,50 C70,40 60,30 50,30 C40,30 30,40 30,50 Z"/></svg>');
-            background-size: 200px;
-            opacity: 0.1;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        
-        .date {
-            font-style: italic;
-            font-size: 1rem;
-            position: relative;
-        }
-        
-        .time-together {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        
-        .time-title {
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .time-counters {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .time-item {
-            background: linear-gradient(to bottom, #ff8e8e, #ff6b6b);
-            color: white;
-            padding: 15px 8px;
-            border-radius: 10px;
-            min-width: 90px;
-            flex: 1 1 calc(25% - 20px);
-            max-width: calc(25% - 10px);
-            box-shadow: 0 5px 10px rgba(255, 107, 107, 0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .time-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .time-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .time-label {
-            font-size: 0.9rem;
-        }
-        
-        .memories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 35px;
-        }
-        
-        .memory-card {
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .memory-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .memory-img {
-            height: 200px;
-            background-color: #ffe6e6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ff6b6b;
-            font-size: 3rem;
-        }
-        
-        .memory-content {
-            padding: 20px;
-        }
-        
-        .memory-title {
-            color: #ff6b6b;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .memory-text {
-            color: #666;
-            font-size: 0.95rem;
-        }
-        
-        .memory-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .love-reasons {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 35px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .section-title {
-            color: #ff6b6b;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .reasons-list {
-            list-style-type: none;
-        }
-        
-        .reasons-list li {
-            padding: 12px;
-            margin-bottom: 12px;
-            background-color: #fff5f5;
-            border-left: 5px solid #ff6b6b;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .reasons-list li:hover {
-            transform: translateX(5px);
-        }
-        
-        .secret-message {
-            text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            border-radius: 15px;
-            color: white;
-            margin-bottom: 35px;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-        
-        .message-btn {
-            background-color: white;
-            color: #ff6b6b;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .message-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .hidden-message {
-            display: none;
-            margin-top: 25px;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            font-size: 1.1rem;
-            animation: fadeIn 1s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #ff6b6b;
-            font-size: 1rem;
-        }
-        
-        .heart {
-            color: #ff6b6b;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-        
-        .milestone {
-            background: linear-gradient(45deg, #ff8e8e, #ff6b6b);
-            padding: 25px;
-            border-radius: 15px;
-            color: white;
-            text-align: center;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-            display: none;
-        }
-        
-        .milestone i {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            display: block;
-        }
-        
-        .progress-container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .progress-bar {
-            height: 25px;
-            background-color: #ffe6e6;
-            border-radius: 15px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, #ff8e8e, #ff6b6b);
-            border-radius: 15px;
-            width: 0%;
-            transition: width 1s ease;
-        }
-        
-        .progress-text {
-            text-align: center;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #ff6b6b;
-            font-size: 0.95rem;
-        }
-        
-        /* Media Queries para diferentes tamaños de pantalla */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            header {
-                padding: 25px 15px;
-                margin-bottom: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .time-title {
-                font-size: 1.5rem;
-            }
-            
-            .time-item {
-                min-width: 80px;
-                padding: 12px 5px;
-                flex: 1 1 calc(33.333% - 10px);
-                max-width: calc(33.333% - 10px);
-            }
-            
-            .time-value {
-                font-size: 1.5rem;
-            }
-            
-            .time-label {
-                font-size: 0.8rem;
-            }
-            
-            .memories {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .memory-card img {
-                height: 180px;
-            }
-            
-            .love-reasons {
-                padding: 20px;
-            }
-            
-            .secret-message {
-                padding: 25px 15px;
-            }
-            
-            .message-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .date {
-                font-size: 0.9rem;
-            }
-            
-            .time-item {
-                flex: 1 1 calc(50% - 10px);
-                max-width: calc(50% - 10px);
-                min-width: 70px;
-            }
-            
-            .time-value {
-                font-size: 1.3rem;
-            }
-            
-            .time-label {
-                font-size: 0.75rem;
-            }
-            
-            .memory-content {
-                padding: 15px;
-            }
-            
-            .memory-title {
-                font-size: 1.2rem;
-            }
-            
-            .memory-text {
-                font-size: 0.9rem;
-            }
-            
-            .reasons-list li {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            
-            .hidden-message {
-                font-size: 1rem;
-                padding: 12px;
-            }
-            
-            .progress-container {
-                padding: 20px;
-            }
-            
-            .progress-bar {
-                height: 20px;
-            }
-        }
-        
-        @media (max-width: 350px) {
-            .time-item {
-                flex: 1 1 calc(50% - 5px);
-                max-width: calc(50% - 5px);
-                min-width: 60px;
-                padding: 8px 3px;
-            }
-            
-            .time-value {
-                font-size: 1.1rem;
-            }
-            
-            .time-label {
-                font-size: 0.7rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nuestro Universo de Amor ✨</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #020208;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #ffffff;
+    }
+
+    /* --- 1. Intro Overlay --- */
+    #intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      background: radial-gradient(circle at center, #111827 0%, #020208 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 100;
+      padding: 24px;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .intro-card {
+      max-width: 400px;
+      animation: fadeInIntro 1.5s ease-out;
+    }
+
+    @keyframes fadeInIntro {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .intro-title {
+      font-size: 1.6rem;
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 35px;
+      color: #e2e8f0;
+      letter-spacing: 0.5px;
+    }
+
+    .start-btn {
+      padding: 16px 35px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+      cursor: pointer;
+      outline: none;
+      transition: background-position 0.5s, transform 0.2s;
+    }
+
+    .start-btn:active { transform: scale(0.96); }
+
+    /* --- 2. Canvas para las Estrellas --- */
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      z-index: 1;
+    }
+
+    /* --- 3. Modal de Recuerdos (Glassmorphism) --- */
+    #memory-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      background: rgba(2, 2, 8, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #memory-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 25px;
+      max-width: 380px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #memory-modal.active .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-content.secret-theme {
+      background: rgba(30, 10, 25, 0.95);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      box-shadow: 0 0 50px rgba(244, 63, 94, 0.4);
+      padding: 35px 25px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 1.6rem;
+      color: #94a3b8;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .memory-title {
+      font-size: 1.35rem;
+      margin-bottom: 5px;
+      color: #f8fafc;
+      font-weight: 600;
+    }
+
+    .memory-date {
+      font-size: 0.85rem;
+      color: #f9a8d4;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+    }
+
+    /* Fotos y Video ampliados a 280px de altura */
+    .memory-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 18px;
+      background-color: #1f2937;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .memory-text {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #d1d5db;
+      font-weight: 400;
+    }
+
+    .modal-content.secret-theme .memory-text {
+      font-size: 1.15rem;
+      color: #ffe4e6;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+
+    /* --- 4. Pie de Página --- */
+    #time-counter {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 1s ease, background-color 0.5s ease, border-color 0.5s ease;
+      pointer-events: none;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.3px;
+      text-align: center;
+    }
+
+    #time-counter.visible { opacity: 1; }
+
+    #time-counter.shake-alert {
+      background: rgba(157, 23, 77, 0.85);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #fff;
+      font-weight: 600;
+      animation: pulseAlert 1.5s infinite;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { transform: translateX(-50%) scale(1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.4); }
+      50% { transform: translateX(-50%) scale(1.03); box-shadow: 0 0 25px rgba(244, 63, 94, 0.8); }
+    }
+
+    #timer {
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 id="mainTitle">Nuestros <span id="timeUnit">Meses</span> Juntos</h1>
-            <p class="subtitle">Cada momento a tu lado es un regalo</p>
-            <p class="date">Desde el 20 de abril de 2025</p>
-        </header>
-        
-        <div class="milestone" id="yearMilestone">
-            <i class="fas fa-glass-cheers"></i>
-            <h2>¡Feliz Primer Aniversario!</h2>
-            <p>Hemos llegado a nuestro primer año juntos. ¡Es solo el comienzo de nuestra eternidad!</p>
-        </div>
-        
-        <section class="time-together">
-            <h2 class="time-title">Tiempo que hemos compartido</h2>
-            <div class="time-counters">
-                <div class="time-item">
-                    <div class="time-value" id="years">0</div>
-                    <div class="time-label">Años</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-value" id="months">4</div>
-                    <div class="time-label">Meses</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-value" id="weeks">17</div>
-                    <div class="time-label">Semanas</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-value" id="days">122</div>
-                    <div class="time-label">Días</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-value" id="hours">2928</div>
-                    <div class="time-label">Horas</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-value" id="minutes">175680</div>
-                    <div class="time-label">Minutos</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-value" id="seconds">10540800</div>
-                    <div class="time-label">Segundos</div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="progress-container">
-            <h2 class="section-title">Progreso hacia nuestro primer año</h2>
-            <div class="progress-bar">
-                <div class="progress-fill" id="yearProgress"></div>
-            </div>
-            <div class="progress-text" id="progressText">33% hacia nuestro primer año juntos</div>
-        </div>
-        
-        <h2 class="section-title">Nuestros Recuerdos</h2>
-        <section class="memories">
-            <div class="memory-card">
-                <img src="01.jpg" alt="Conocernos">
-                <div class="memory-content">
-                    <h3 class="memory-title">Conocernos</h3>
-                    <p class="memory-text">Recuerdo cuando aun no estabamos juntos pero ya se notaba la quimica.</p>
-                </div>
-            </div>
-            
-            <div class="memory-card">
-                <img src="02.jpg" alt="Nuestra primera comida juntos">
-                <div class="memory-content">
-                    <h3 class="memory-title">Nuestra primera comida juntos</h3>
-                    <p class="memory-text">No recuerdo mucho que comí, pero sí recuerdo lo bien que me sentía a tu lado mirando tus bellos ojos.</p>
-                </div>
-            </div>
-            
-            <div class="memory-card">
-                <img src="03.jpeg" alt="El regalo">
-                <div class="memory-content">
-                    <h3 class="memory-title">El regalo</h3>
-                    <p class="memory-text">Recuerdo ese primer regalo que te hice con mis propias manos, no me quedò muy bonito pero puse todo mi corazòn en el.</p>
-                </div>
-            </div>
-			
-            <div class="memory-card">
-                <img src="04.jpg" alt="El primer ramo de flores">
-                <div class="memory-content">
-                    <h3 class="memory-title">El primer ramo de flores</h3>
-                    <p class="memory-text">Recuerdo ese primer ramo, lo nervioso que estaba cuando te lo hiba a entregar y la cara tan tierna que pusiste cuando me viste.</p>
-                </div>
-            </div>
-			
-            <div class="memory-card">
-                <img src="05.jpg" alt="La primera vez que fuiste a mi casa">
-                <div class="memory-content">
-                    <h3 class="memory-title">La primera vez que fuiste a mi casa</h3>
-                    <p class="memory-text">Recuerdo lo nerviosa que estabas y lo hermosa que te veias.</p>
-                </div>
-            </div>
-			
-            <div class="memory-card">
-                <img src="06.jpg" alt="Tiempo">
-                <div class="memory-content">
-                    <h3 class="memory-title">Tiempo</h3>
-                    <p class="memory-text">El tiempo ah pasado volando junto a ti mivida.</p>
-                </div>
-            </div>
-			
-            <div class="memory-card">
-                <img src="07.jpg" alt="Mi sol">
-                <div class="memory-content">
-                    <h3 class="memory-title">Mi sol</h3>
-                    <p class="memory-text">Este dia estabas increiblemente luminosa, fuiste la chica mas linda del lugar.</p>
-                </div>
-            </div>
-			
-            <div class="memory-card">
-                <img src="08.jpg" alt="Felicidad">
-                <div class="memory-content">
-                    <h3 class="memory-title">Felicidad</h3>
-                    <p class="memory-text">No son necesarias las palabras solo mira la pureza de la imagen.</p>
-                </div>
-            </div>
-			
-            <div class="memory-card">
-                <img src="09.jpg" alt="Apoyo">
-                <div class="memory-content">
-                    <h3 class="memory-title">Apoyo</h3>
-                    <p class="memory-text">Aun en mis momentos mas oscuros y estresantes haz estado ahi para apoyarme.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section class="love-reasons">
-            <h2 class="section-title">Razones por las que te amo</h2>
-            <ul class="reasons-list">
-                <li>Tu sonrisa sincera</li>
-                <li>Tu forma de ver la vida</li>
-				<li>Tu habilidad en la cama</li>
-                <li>Cómo me haces sentir cada día</li>
-                <li>Tus hermosos ojos marrones</li>
-                <li>La forma en que me entiendes sin necesidad de palabras</li>
-				<li>Tu deliciosa comida</li>
-				<li>Tu apoyo incondicional</li>
-				<li>Tu paz en momentos de caos</li>
-				<li>Tu cariño</li>
-				<li>Tu forma de hacerme sentir</li>
-				<li>Como me haz hecho descubrir gustos nuevos</li>
-            </ul>
-        </section>
-        
-        <section class="secret-message">
-            <h2>Tengo un mensaje especial para ti</h2>
-            <button class="message-btn" onclick="showMessage()">Haz clic aquí</button>
-            <div id="hiddenMessage" class="hidden-message">
-                <p>Estos 4 meses contigo han sido los mejores de mi vida. Cada día a tu lado es un regalo que atesoro profundamente. Eres la persona más increíble que he conocido y me siento el ser más afortunado por tenerte en mi vida. Te amo más de lo que las palabras pueden expresar.</p>
-                <p>Con todo mi amor,<br>Yoham</p>
-            </div>
-        </section>
-    </div>
-    
-    <footer>
-        <p>Hecho con <span class="heart">❤</span> para la mujer más especial del mundo</p>
-    </footer>
 
-    <script>
-        // Fecha de inicio de la relación (20 de abril de 2025)
-        const startDate = new Date('2025-04-20');
-        
-        function updateTimeTogether() {
-            const now = new Date();
-            const diffTime = Math.abs(now - startDate);
-            
-            // Cálculo del tiempo juntos
-            const seconds = Math.floor(diffTime / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
-            const weeks = Math.floor(days / 7);
-            const months = Math.floor(days / 30.44); // Promedio de días por mes
-            const years = Math.floor(months / 12);
-            
-            // Si han pasado años completos, actualizamos meses restantes
-            const remainingMonths = months % 12;
-            
-            // Actualizar los valores en la página
-            document.getElementById('years').textContent = years;
-            document.getElementById('months').textContent = remainingMonths;
-            document.getElementById('weeks').textContent = weeks;
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
-            
-            // Calcular progreso hacia el primer año
-            const daysInYear = 365;
-            const progressPercentage = Math.min(100, (days / daysInYear) * 100);
-            document.getElementById('yearProgress').style.width = progressPercentage + '%';
-            document.getElementById('progressText').textContent = 
-                Math.round(progressPercentage) + '% hacia nuestro primer año juntos';
-            
-            // Cambiar el título según los años completos
-            const timeUnitElement = document.getElementById('timeUnit');
-            const mainTitleElement = document.getElementById('mainTitle');
-            const yearMilestoneElement = document.getElementById('yearMilestone');
-            
-            if (years > 0) {
-                timeUnitElement.textContent = "Años";
-                if (years === 1) {
-                    mainTitleElement.innerHTML = "Nuestro Primer Año Juntos";
-                } else {
-                    mainTitleElement.innerHTML = `Nuestros ${years} Años Juntos`;
-                }
-                
-                // Mostrar mensaje especial en el aniversario
-                const isAnniversary = now.getMonth() === startDate.getMonth() && now.getDate() === startDate.getDate();
-                if (isAnniversary) {
-                    yearMilestoneElement.style.display = 'block';
-                    if (years === 1) {
-                        yearMilestoneElement.querySelector('h2').textContent = `¡Feliz ${years}er Aniversario!`;
-                    } else {
-                        yearMilestoneElement.querySelector('h2').textContent = `¡Feliz ${years}° Aniversario!`;
-                    }
-                }
-            } else {
-                timeUnitElement.textContent = "Meses";
-                if (months === 1) {
-                    mainTitleElement.innerHTML = "Nuestro Primer Mes Juntos";
-                } else {
-                    mainTitleElement.innerHTML = `Nuestros ${months} Meses Juntos`;
-                }
-                
-                // Mostrar mensaje especial en el mesiversario
-                if (now.getDate() === startDate.getDate()) {
-                    yearMilestoneElement.style.display = 'block';
-                    yearMilestoneElement.querySelector('i').className = 'fas fa-birthday-cake';
-                    yearMilestoneElement.querySelector('h2').textContent = `¡Feliz ${months} Meses Juntos!`;
-                    yearMilestoneElement.querySelector('p').textContent = 
-                        `Hemos cumplido ${months} meses juntos. ¡Qué rápido pasa el tiempo cuando estoy contigo!`;
-                }
-            }
+  <!-- Mensaje de Entrada -->
+  <div id="intro-overlay">
+    <div class="intro-card">
+      <p class="intro-title">Hay momentos que brillan para siempre...<br><br>y estos 6 meses contigo han sido un universo entero.</p>
+      <button class="start-btn" id="start-btn">Explorar nuestro cielo ✨</button>
+    </div>
+  </div>
+
+  <!-- Lienzo Interactivo -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Modal Emergente (Recuerdo) -->
+  <div id="memory-modal">
+    <div class="modal-content" id="modal-card">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <h2 class="memory-title" id="modal-title"></h2>
+      <p class="memory-date" id="modal-date"></p>
+      
+      <!-- Soporte para Imagen -->
+      <img class="memory-img" id="modal-img" src="" alt="Recuerdo">
+      
+      <!-- Soporte para Video en Bucle -->
+      <video class="memory-img" id="modal-video" src="" autoplay loop muted playsinline style="display: none;"></video>
+      
+      <p class="memory-text" id="modal-text"></p>
+    </div>
+  </div>
+
+  <!-- Pie de Página Dinámico -->
+  <footer id="time-counter">
+    <span id="counter-label">Juntos hace: <span id="timer">Cargando...</span></span>
+  </footer>
+
+  <script>
+    // --- 1. DATOS DE LOS RECUERDOS Y CARTA FINAL (SIN IMAGEN) ---
+    const memories = [
+      { id: 1, x: 0.20, y: 0.20, title: "Mes 1: El Comienzo", date: "20 ABRIL", text: "El día que nuestro universo empezó a expandirse. ¡Qué suerte encontrarte!", img: "abr.jpg" },
+      { id: 2, x: 0.75, y: 0.25, title: "Mes 2: Primeras Risas", date: "20 MAYO", text: "Aquella cita donde supe que no quería separarme de ti nunca.", img: "may.jpg" },
+      { id: 3, x: 0.45, y: 0.45, title: "Mes 3: Conexión", date: "20 JUNIO", text: "Tres meses intensos, llenos de cariño y de descubrirnos.", img: "jun.jpg" },
+      { id: 4, x: 0.85, y: 0.65, title: "Mes 4: Aventuras Juntos", date: "20 JULIO", text: "Cada viaje, cada paseo, cada momento a tu lado es mi favorito.", img: "jul.jpg" },
+      { id: 5, x: 0.25, y: 0.75, title: "Mes 5: Más Fuerte", date: "20 AGOSTO", text: "Gracias por ser mi apoyo, mi sonrisa y mi hogar.", video: "ago.mp4" },
+      { id: 6, x: 0.65, y: 0.85, title: "Medio Año", date: "20 SEPTIEMBRE", text: "Seis meses maravillosos. Esto es solo el principio de nuestro viaje eterno.", img: "sep.jpg" }
+    ];
+
+    const secretLetter = {
+      title: "Lo que nunca te dije...",
+      date: "SECRETO DEL UNIVERSO 💖",
+      text: "Hay algo que lleva tiempo guardado en mi corazón y que este universo ya no puede contener más... Gracias por estos 6 meses increíbles. Te amo."
+    };
+
+    const startDate = new Date(2026, 3, 20, 0, 0, 0); 
+    const visitedMemories = new Set();
+    let secretUnlocked = false;
+
+    // --- 2. CANVAS & PARTÍCULAS ---
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    let bgStars = [];
+    let flowParticles = [];
+    let burstParticles = [];
+
+    class FlowParticle {
+      constructor(startX, startY, endX, endY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+        this.life = Math.random();
+        this.speed = 0.002 + Math.random() * 0.003;
+        this.size = Math.random() * 1.5;
+        this.color = Math.random() > 0.5 ? "#f9a8d4" : "#a5b4fc";
+      }
+
+      update() {
+        this.life += this.speed;
+        if (this.life >= 1) this.life = 0;
+      }
+
+      draw() {
+        const curvelineFactor = 0.15;
+        const midX = (this.startX + this.endX) / 2 + (this.endY - this.startY) * curvelineFactor;
+        const midY = (this.startY + this.endY) / 2 + (this.startX - this.endX) * curvelineFactor;
+        const t = this.life;
+        const cx = (1 - t) * (1 - t) * this.startX + 2 * (1 - t) * t * midX + t * t * this.endX;
+        const cy = (1 - t) * (1 - t) * this.startY + 2 * (1 - t) * t * midY + t * t * this.endY;
+
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = t < 0.2 ? t * 5 : (t > 0.8 ? (1 - t) * 5 : 1);
+        ctx.beginPath();
+        ctx.arc(cx, cy, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    class BurstParticle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.angle = Math.random() * Math.PI * 2;
+        this.speed = 2 + Math.random() * 8;
+        this.friction = 0.96;
+        this.size = 2 + Math.random() * 4;
+        this.color = ['#f43f5e', '#fbbf24', '#f9a8d4', '#ffffff'][Math.floor(Math.random() * 4)];
+        this.alpha = 1;
+        this.decay = 0.008 + Math.random() * 0.015;
+      }
+
+      update() {
+        this.speed *= this.friction;
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+        this.alpha -= this.decay;
+      }
+
+      draw() {
+        if (this.alpha <= 0) return;
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initBgStars();
+      initFlowParticles();
+    }
+
+    function initBgStars() {
+      bgStars = [];
+      for (let i = 0; i < 200; i++) {
+        bgStars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.2,
+          alpha: Math.random(),
+          speed: 0.005 + Math.random() * 0.01
+        });
+      }
+    }
+
+    function initFlowParticles() {
+      flowParticles = [];
+      for (let i = 0; i < memories.length - 1; i++) {
+        const start = memories[i];
+        const end = memories[i + 1];
+        for (let j = 0; j < 30; j++) {
+          flowParticles.push(new FlowParticle(start.x * width, start.y * height, end.x * width, end.y * height));
         }
-        
-        // Actualizar inmediatamente y luego cada segundo
-        updateTimeTogether();
-        setInterval(updateTimeTogether, 1000);
-        
-        // Función para mostrar el mensaje secreto
-        function showMessage() {
-            const message = document.getElementById('hiddenMessage');
-            if (message.style.display === 'block') {
-                message.style.display = 'none';
-            } else {
-                message.style.display = 'block';
-            }
+      }
+    }
+
+    function triggerBurst() {
+      burstParticles = [];
+      for (let i = 0; i < 150; i++) {
+        burstParticles.push(new BurstParticle(width / 2, height / 2));
+      }
+    }
+
+    function draw(time) {
+      ctx.clearRect(0, 0, width, height);
+
+      bgStars.forEach(star => {
+        star.alpha += star.speed;
+        if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
+        ctx.globalAlpha = Math.abs(star.alpha);
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+
+      flowParticles.forEach(p => { p.update(); p.draw(); });
+
+      burstParticles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        if (p.alpha <= 0) burstParticles.splice(index, 1);
+      });
+
+      memories.forEach((m, index) => {
+        const x = m.x * width;
+        const y = m.y * height;
+        const pulse = Math.sin(time * 0.002 + index) * 0.5 + 0.5;
+
+        const nebulaGradient = ctx.createRadialGradient(x, y, 0, x, y, 35 + pulse * 10);
+        nebulaGradient.addColorStop(0, 'rgba(139, 92, 246, 0.3)');
+        nebulaGradient.addColorStop(1, 'rgba(2, 2, 8, 0)');
+        ctx.fillStyle = nebulaGradient;
+        ctx.beginPath();
+        ctx.arc(x, y, 45 + pulse * 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.globalAlpha = 0.5 + pulse * 0.3;
+        ctx.fillStyle = index % 2 === 0 ? "#a5b4fc" : "#f9a8d4";
+        ctx.beginPath();
+        ctx.arc(x, y, 10 + pulse * 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(index + 1, x, y + 25);
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    // --- 3. INTERACCIÓN Y NAVEGACIÓN ---
+    window.addEventListener('resize', resize);
+    resize();
+
+    canvas.addEventListener('click', (e) => {
+      if (introOverlay.style.visibility !== 'hidden' && introOverlay.style.opacity !== '0') return;
+
+      const rect = canvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      memories.forEach(m => {
+        const starX = m.x * width;
+        const starY = m.y * height;
+        if (Math.hypot(clickX - starX, clickY - starY) < 40) {
+          openModal(m);
         }
-    </script>
+      });
+    });
+
+    const modal = document.getElementById('memory-modal');
+    const modalCard = document.getElementById('modal-card');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    function openModal(memory, isSecret = false) {
+      if (!isSecret) visitedMemories.add(memory.id);
+
+      document.getElementById('modal-title').innerText = memory.title;
+      document.getElementById('modal-date').innerText = memory.date;
+      document.getElementById('modal-text').innerText = memory.text;
+
+      const imgElem = document.getElementById('modal-img');
+      const videoElem = document.getElementById('modal-video');
+
+      // Gestión de Imagen / Video / Ocultar en sorpresa final
+      if (isSecret) {
+        imgElem.style.display = 'none';
+        videoElem.style.display = 'none';
+        imgElem.src = '';
+        videoElem.src = '';
+      } else if (memory.video) {
+        imgElem.style.display = 'none';
+        imgElem.src = '';
+
+        videoElem.src = memory.video;
+        videoElem.style.display = 'block';
+        videoElem.play();
+      } else {
+        videoElem.style.display = 'none';
+        videoElem.pause();
+        videoElem.src = '';
+
+        imgElem.src = memory.img;
+        imgElem.style.display = 'block';
+      }
+
+      if (isSecret) {
+        modalCard.classList.add('secret-theme');
+      } else {
+        modalCard.classList.remove('secret-theme');
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      setTimeout(() => {
+        const videoElem = document.getElementById('modal-video');
+        const imgElem = document.getElementById('modal-img');
+        
+        videoElem.pause();
+        videoElem.src = "";
+        imgElem.src = "";
+      }, 300);
+
+      if (visitedMemories.size === memories.length && !secretUnlocked) {
+        activateShakePrompt();
+      }
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+    // --- 4. SENSOR DE MOVIMIENTO (SHAKE GESTURE) ---
+    const footer = document.getElementById('time-counter');
+    const footerLabel = document.getElementById('counter-label');
+
+    function activateShakePrompt() {
+      footer.classList.add('shake-alert');
+      footerLabel.innerHTML = "✨ ¡Agita tu teléfono para una última sorpresa! ✨";
+      footer.onclick = triggerSecretSurprise;
+
+      if (window.DeviceMotionEvent) {
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+          DeviceMotionEvent.requestPermission().then(state => {
+            if (state === 'granted') window.addEventListener('devicemotion', handleMotion);
+          });
+        } else {
+          window.addEventListener('devicemotion', handleMotion);
+        }
+      }
+    }
+
+    let lastX = null, lastY = null, lastZ = null;
+    const shakeThreshold = 15;
+
+    function handleMotion(e) {
+      const current = e.accelerationIncludingGravity;
+      if (!current) return;
+
+      if (lastX !== null) {
+        const deltaX = Math.abs(current.x - lastX);
+        const deltaY = Math.abs(current.y - lastY);
+        const deltaZ = Math.abs(current.z - lastZ);
+
+        if (deltaX + deltaY + deltaZ > shakeThreshold) {
+          triggerSecretSurprise();
+        }
+      }
+
+      lastX = current.x;
+      lastY = current.y;
+      lastZ = current.z;
+    }
+
+    function triggerSecretSurprise() {
+      if (secretUnlocked) return;
+      secretUnlocked = true;
+
+      window.removeEventListener('devicemotion', handleMotion);
+      footer.classList.remove('shake-alert');
+      footer.onclick = null;
+      footerLabel.innerHTML = 'Juntos hace: <span id="timer"></span>';
+
+      triggerBurst();
+
+      setTimeout(() => {
+        openModal(secretLetter, true);
+      }, 400);
+    }
+
+    // --- 5. FLUJO E INICIO ---
+    const startBtn = document.getElementById('start-btn');
+    const introOverlay = document.getElementById('intro-overlay');
+
+    startBtn.addEventListener('click', () => {
+      introOverlay.style.opacity = '0';
+      introOverlay.style.visibility = 'hidden';
+      setTimeout(() => footer.classList.add('visible'), 500);
+
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission().catch(() => {});
+      }
+    });
+
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      const timerElem = document.getElementById('timer');
+      if (timerElem) {
+        timerElem.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+    }
+
+    requestAnimationFrame(draw);
+    setInterval(updateCounter, 1000);
+    updateCounter();
+  </script>
 </body>
 </html>
